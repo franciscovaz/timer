@@ -1,5 +1,9 @@
+import { ThemeProvider } from 'styled-components';
+import { defaultTheme } from './styles/themes/default';
 export function App() {
   return (
-      <p>Clean for Timer project with TS</p>
+    <ThemeProvider theme={defaultTheme}>
+      <p>Testing themes with styled components</p>
+    </ThemeProvider>
   )
 }
