@@ -15,7 +15,10 @@ export function Home() {
       <form action="">
         <FormContainer>
           <label htmlFor="task">I will work on</label>
-          <TaskInput id="task" placeholder="Give a name for your project" />
+          <TaskInput
+            id="task"
+            placeholder="Give a name for your nice project"
+          />
 
           <label htmlFor="minutesAmount">during</label>
           <MinutesAmountInput
