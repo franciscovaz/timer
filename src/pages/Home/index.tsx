@@ -17,9 +17,15 @@ export function Home() {
           <label htmlFor="task">I will work on</label>
           <TaskInput
             id="task"
+            list="list-sugestions"
             placeholder="Give a name for your nice project"
           />
 
+          <datalist id="list-sugestions">
+            <option value="Projeto 1" />
+            <option value="Projeto 2" />
+            <option value="Foco Total" />
+          </datalist>
           <label htmlFor="minutesAmount">during</label>
           <MinutesAmountInput
             id="minutesAmount"
