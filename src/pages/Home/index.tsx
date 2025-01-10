@@ -9,6 +9,12 @@ import {
   TaskInput,
 } from './styles'
 
+/* Controlled vs Uncontrolled Forms 
+Controlled - use variables for each input/form control
+          - used for smaller forms
+Uncontrolçed - we get the values only on submit, f.e.
+        faster, but you lose flow and the control while user is writing 
+*/
 export function Home() {
   return (
     <HomeContainer>
