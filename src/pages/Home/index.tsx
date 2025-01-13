@@ -18,11 +18,14 @@ Uncontrolçed - we get the values only on submit, f.e.
         faster, but you lose flow and the control while user is writing 
 */
 export function Home() {
-  const { register, handleSubmit } = useForm()
+  const { register, handleSubmit, watch } = useForm()
 
   function handleCreateNewCycle(data: any) {
     console.log(data)
   }
+
+  const task = watch('task')
+  const isSubmitDisabled = !task
 
   return (
     <HomeContainer>
@@ -65,7 +68,7 @@ export function Home() {
           <span>0</span>
         </CountdownContainer>
 
-        <StartCountdownButton type="submit">
+        <StartCountdownButton disabled={isSubmitDisabled} type="submit">
           <Play size={24} />
           Start
         </StartCountdownButton>
