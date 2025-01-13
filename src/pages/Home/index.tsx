@@ -9,6 +9,8 @@ import {
   TaskInput,
 } from './styles'
 
+import { useForm } from 'react-hook-form'
+
 /* Controlled vs Uncontrolled Forms 
 Controlled - use variables for each input/form control
           - used for smaller forms
@@ -16,15 +18,22 @@ Uncontrolçed - we get the values only on submit, f.e.
         faster, but you lose flow and the control while user is writing 
 */
 export function Home() {
+  const { register, handleSubmit } = useForm()
+
+  function handleCreateNewCycle(data: any) {
+    console.log(data)
+  }
+
   return (
     <HomeContainer>
-      <form action="">
+      <form onSubmit={handleSubmit(handleCreateNewCycle)}>
         <FormContainer>
           <label htmlFor="task">I will work on</label>
           <TaskInput
             id="task"
             list="list-sugestions"
             placeholder="Give a name for your nice project"
+            {...register('task')}
           />
 
           <datalist id="list-sugestions">
@@ -40,6 +49,7 @@ export function Home() {
             step={5}
             min={5}
             max={60}
+            {...register('minutesAmount', { valueAsNumber: true })}
           />
 
           <span>minutes.</span>
@@ -55,7 +65,7 @@ export function Home() {
           <span>0</span>
         </CountdownContainer>
 
-        <StartCountdownButton disabled type="submit">
+        <StartCountdownButton type="submit">
           <Play size={24} />
           Start
         </StartCountdownButton>
