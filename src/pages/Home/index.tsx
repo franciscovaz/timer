@@ -10,6 +10,8 @@ import {
 } from './styles'
 
 import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import * as zod from 'zod'
 
 /* Controlled vs Uncontrolled Forms 
 Controlled - use variables for each input/form control
@@ -17,8 +19,19 @@ Controlled - use variables for each input/form control
 Uncontrolçed - we get the values only on submit, f.e.
         faster, but you lose flow and the control while user is writing 
 */
+
+const newCycleFormValidationSchema = zod.object({
+  task: zod.string().min(1, 'Inform a task'),
+  minutesAmount: zod
+    .number()
+    .min(5, 'Cycle needs to have at least 5min')
+    .max(60, 'Cycle cant have more than 60min'),
+})
+
 export function Home() {
-  const { register, handleSubmit, watch } = useForm()
+  const { register, handleSubmit, watch } = useForm({
+    resolver: zodResolver(newCycleFormValidationSchema),
+  })
 
   function handleCreateNewCycle(data: any) {
     console.log(data)
