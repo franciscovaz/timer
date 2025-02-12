@@ -18,11 +18,12 @@ export function Countdown() {
     let interval: number
 
     if (activeCycle) {
-      const secondsDifference = differenceInSeconds(
-        new Date(),
-        activeCycle.startDate,
-      )
       interval = setInterval(() => {
+        const secondsDifference = differenceInSeconds(
+          new Date(),
+          activeCycle.startDate,
+        )
+
         if (secondsDifference >= totalSeconds) {
           markCurrentCycleAsFinished()
 
@@ -54,9 +55,10 @@ export function Countdown() {
   const seconds = String(secondsAmount).padStart(2, '0')
 
   useEffect(() => {
-    document.title = `${minutes}:${seconds}`
-  }, [minutes, seconds])
-
+    if (activeCycle) {
+      document.title = `${minutes}:${seconds}`
+    }
+  }, [minutes, seconds, activeCycle])
   return (
     <CountdownContainer>
       <span>{minutes[0]}</span>
