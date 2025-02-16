@@ -8,8 +8,6 @@ export function History() {
     <HistoryContainer>
       <h1>My History</h1>
 
-      <pre>{JSON.stringify(cycles, null, 2)}</pre>
-
       <HistoryList>
         <table>
           <thead>
@@ -21,54 +19,28 @@ export function History() {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Task</td>
-              <td>20 minutes</td>
-              <td>Two months ago</td>
-              <td>
-                <Status $statusColor="green">Concluded</Status>
-              </td>
-            </tr>
-            <tr>
-              <td>Task</td>
-              <td>20 minutes</td>
-              <td>Two months ago</td>
-              <td>
-                <Status $statusColor="red">Stopped</Status>
-              </td>
-            </tr>
-            <tr>
-              <td>Task</td>
-              <td>20 minutes</td>
-              <td>Two months ago</td>
-              <td>
-                <Status $statusColor="yellow">In progress</Status>
-              </td>
-            </tr>
-            <tr>
-              <td>Task</td>
-              <td>20 minutes</td>
-              <td>Two months ago</td>
-              <td>
-                <Status $statusColor="green">Concluded</Status>
-              </td>
-            </tr>
-            <tr>
-              <td>Task</td>
-              <td>20 minutes</td>
-              <td>Two months ago</td>
-              <td>
-                <Status $statusColor="red">Stopped</Status>
-              </td>
-            </tr>
-            <tr>
-              <td>Task</td>
-              <td>20 minutes</td>
-              <td>Two months ago</td>
-              <td>
-                <Status $statusColor="yellow">In progress</Status>
-              </td>
-            </tr>
+            {cycles.map((cycle) => {
+              return (
+                <tr key={cycle.id}>
+                  <td>{cycle.task}</td>
+                  <td>{cycle.minutesAmount}</td>
+                  <td>{cycle.startDate.toISOString()}</td>
+                  <td>
+                    {cycle.finishedDate && (
+                      <Status $statusColor="green">Finished</Status>
+                    )}
+
+                    {cycle.stopDate && (
+                      <Status $statusColor="red">Interrupted</Status>
+                    )}
+
+                    {!cycle.finishedDate && !cycle.stopDate && (
+                      <Status $statusColor="yellow">In progress</Status>
+                    )}
+                  </td>
+                </tr>
+              )
+            })}
           </tbody>
         </table>
       </HistoryList>
