@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useState } from 'react'
+import { createContext, ReactNode, useReducer, useState } from 'react'
 
 interface CreateCycleData {
   task: string
@@ -34,14 +34,27 @@ interface CyclesContextProviderProps {
 export function CyclesContextProvider({
   children,
 }: CyclesContextProviderProps) {
-  const [cycles, setCycles] = useState<Cycle[]>([])
+  const [cycles, dispatch] = useReducer((state: Cycle[], action: any) => {
+    if (action.type === 'ADD_NEW_CYCLE') {
+      return [...state, action.payload.newCycle]
+    }
+    return state
+  }, [])
+
   const [activeCycleId, setActiveCycleId] = useState<string | null>(null)
   const [passedSecondsAmount, setPassedSecondsAmount] = useState(0)
 
   const activeCycle = cycles.find((cycle) => cycle.id === activeCycleId)
 
   function markCurrentCycleAsFinished(): void {
-    setCycles((state) =>
+    dispatch({
+      type: 'MARK_CURRENT_CYCLE_AS_FINISHED',
+      payload: {
+        activeCycleId,
+      },
+    })
+
+    /* setCycles((state) =>
       state.map((cycle) => {
         if (cycle.id === activeCycleId) {
           return { ...cycle, finishedDate: new Date() }
@@ -49,7 +62,7 @@ export function CyclesContextProvider({
           return cycle
         }
       }),
-    )
+    ) */
   }
 
   function setSecondsPassed(seconds: number) {
@@ -65,14 +78,27 @@ export function CyclesContextProvider({
       startDate: new Date(),
     }
 
-    setCycles((state) => [...state, newCycle])
+    dispatch({
+      type: 'ADD_NEW_CYCLE',
+      payload: {
+        newCycle,
+      },
+    })
+
+    // setCycles((state) => [...state, newCycle])
     setActiveCycleId(id)
     setPassedSecondsAmount(0)
-    // reset()
   }
 
   function interruptCurrentCycle() {
-    setCycles((state) =>
+    dispatch({
+      type: 'INTERRUPT_CURRENT_CYCLE',
+      payload: {
+        activeCycleId,
+      },
+    })
+
+    /* setCycles((state) =>
       state.map((cycle) => {
         if (cycle.id === activeCycleId) {
           return { ...cycle, stopDate: new Date() }
@@ -81,7 +107,7 @@ export function CyclesContextProvider({
         }
       }),
     )
-
+ */
     setActiveCycleId(null)
   }
 
