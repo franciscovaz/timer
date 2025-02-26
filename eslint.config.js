@@ -36,6 +36,7 @@ export default tseslint.config(
       ...reactHooks.configs.recommended.rules,
       'react/react-in-jsx-scope': 'off',
       'react/prop-types': 'off',
+      'no-unused-vars': 'off',
       'jsx-a11y/alt-text': [
         'warn',
         {
