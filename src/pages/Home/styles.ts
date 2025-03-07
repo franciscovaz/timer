@@ -2,7 +2,6 @@ import styled from 'styled-components'
 
 export const HomeContainer = styled.main`
   flex: 1;
-
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -27,9 +26,7 @@ export const BaseCountdownButton = styled.button`
 
   gap: 0.5rem;
   font-weight: bold;
-
   cursor: pointer;
-
   color: ${(props) => props.theme['gray-100']};
 
   &:disabled {
